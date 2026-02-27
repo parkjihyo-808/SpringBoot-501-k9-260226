@@ -48,5 +48,13 @@
         <span th:unless="${status.odd}">ODD 속성 참이 아닌 경우 : 짝수 : [[${str}]]</span>
     </li>
 </ul>
+
+<h3>7번과 같은 형식인데, 삼항 연산자를 이용해서 표현 해보기.,</h3>
+<ul>
+    <li th:each="str,status : ${strList}" >
+        <span th:text="${status.odd} ? '홀수--'+${str} : '짝수--'+${str}"></span>
+    </li>
+</ul>
+
 </body>
 </html>
