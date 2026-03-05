@@ -7,7 +7,7 @@
 <body>
 <div layout:fragment="content">
 
-<!--    검색 화면 영역-->
+    <!--    검색 화면 영역-->
     <div class="row mt-3">
         <div class="col">
             <div class="card">
@@ -15,7 +15,7 @@
                     <h5 class="card-title">검색 및 필터</h5>
 
                     <form action="/board/list" method="get">
-<!--                        <input type="hidden" name="size" th:value="${pageRequestDTO.size}">-->
+                        <!--                        <input type="hidden" name="size" th:value="${pageRequestDTO.size}">-->
                         <div class="input-group">
 
                             <select class="form-select" name="type" style="max-width: 150px;">
@@ -39,9 +39,9 @@
             </div>
         </div>
     </div>
-<!--    검색 화면 영역-->
+    <!--    검색 화면 영역-->
 
-<!--    목록화면-->
+    <!--    목록화면-->
     <div class="row content">
         <div class="col">
             <div class="card">
@@ -67,19 +67,21 @@
                         <tr th:each="dto:${responseDTO.dtoList}">
                             <th scope="row">[[${dto.bno}]]</th>
                             <td>
-                                [[${dto.title}]]
+                                <a th:href="|@{/board/read(bno=${dto.bno})}&${link}|">
+                                    [[${dto.title}]]
+                                </a>
                             </td>
                             <td>[[${dto.writer}]]</td>
                             <td>[[${#temporals.format(dto.regDate,'yyyy-MM-dd HH:mm:ss')}]]</td>
                         </tr>
                         </tbody>
                     </table>
-<!--                    기존 스프링 레거시에서 사용한, 부트스트랩의 페이지 네이션 가져오기 -->
+                    <!--                    기존 스프링 레거시에서 사용한, 부트스트랩의 페이지 네이션 가져오기 -->
                     <div class="d-flex justify-content-center">
                         <ul class="pagination flex-wrap">
-                                <li class="page-item" th:if="${responseDTO.prev}">
-                                    <a class="page-link" th:data-num="${responseDTO.start - 1}">Previous</a>
-                                </li>
+                            <li class="page-item" th:if="${responseDTO.prev}">
+                                <a class="page-link" th:data-num="${responseDTO.start - 1}">Previous</a>
+                            </li>
                             <th:block th:each="i : ${#numbers.sequence(responseDTO.start, responseDTO.end)}">
                                 <li th:class="${responseDTO.page == i } ? 'page-item active' : 'page-item'">
                                     <a class="page-link" th:data-num="${i}">[[${i}]]</a>
@@ -97,7 +99,7 @@
     </div>
     <!--    목록화면-->
 
-<!--    모달창 테스트 -->
+    <!--    모달창 테스트 -->
     <div class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -115,7 +117,7 @@
             </div>
         </div>
     </div>
-<!--    모달창 테스트 -->
+    <!--    모달창 테스트 -->
 
 </div> <!--    fragment-->
 <script layout:fragment="script" th:inline="javascript">
@@ -146,7 +148,7 @@
         formObj.submit()
     }, false)
 
-    document.querySelector(".clearBtn").addEventListener("click", function (e){
+    document.querySelector(".clearBtn").addEventListener("click", function (e) {
         e.preventDefault()
         e.stopPropagation()
         self.location = `/board/list`
@@ -158,7 +160,7 @@
     // 모달 띄우기 위해서,
     const modal = new bootstrap.Modal(document.querySelector(".modal"))
 
-    if(result) {
+    if (result) {
         // alert(result)
         console.log(result)
         // 모달창으로 교체 작업,
