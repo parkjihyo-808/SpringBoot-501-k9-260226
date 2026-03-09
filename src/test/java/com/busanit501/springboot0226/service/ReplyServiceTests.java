@@ -1,5 +1,8 @@
 package com.busanit501.springboot0226.service;
 
+import com.busanit501.springboot0226.dto.BoardDTO;
+import com.busanit501.springboot0226.dto.PageRequestDTO;
+import com.busanit501.springboot0226.dto.PageResponseDTO;
 import com.busanit501.springboot0226.dto.ReplyDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -45,6 +48,21 @@ public class ReplyServiceTests {
     @Test
     public void testReplyDeleteOne() {
         replyService.remove(5L);
+    }
+
+    @Test
+    public void testReplySelectList() {
+        // 준비물, 화면에서, 전달받은 페이징 정보와, 검색 정보를 담은
+        // PageRequestDTO 필요함.
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder()
+                .type("tcw")
+                .keyword("샘플")
+                .page(1)
+                .size(10)
+                .build();
+
+        PageResponseDTO<ReplyDTO> responseDTO = replyService.getListOfBoard(124L, pageRequestDTO);
+        log.info("댓글 서비스 테스트 , responseDTO 확인 : " + responseDTO);
     }
 
 }
